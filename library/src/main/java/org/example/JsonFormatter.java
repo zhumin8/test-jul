@@ -15,28 +15,28 @@ public class JsonFormatter extends Formatter {
     JsonObject json = new JsonObject();
 
     // Add logging details
-    json.addProperty("timestamp", record.getMillis());
-    json.addProperty("level", record.getLevel().getName());
-    json.addProperty("logger", record.getLoggerName());
+    // json.addProperty("timestamp", record.getMillis());
+    // json.addProperty("level", record.getLevel().getName());
+    // json.addProperty("logger", record.getLoggerName());
     json.addProperty("message", record.getMessage());
 
-    // Extract custom fields from the message
-    String message = record.getMessage();
-    Matcher matcher = FIELD_PATTERN.matcher(message);
-    while (matcher.find()) {
-      String fieldName = matcher.group(1);
-      String fieldValue = matcher.group(2);
-      json.addProperty(fieldName, fieldValue);
-    }
-
-    // Remove custom fields from the message
-    String cleanMessage = message.replaceAll("\\{(.+?)=(.+?)}", "");
-    json.addProperty("message", cleanMessage);
-
-    Throwable thrown = record.getThrown();
-    if (thrown != null) {
-      json.addProperty("exception", thrown.toString());
-    }
+    // // Extract custom fields from the message
+    // String message = record.getMessage();
+    // Matcher matcher = FIELD_PATTERN.matcher(message);
+    // while (matcher.find()) {
+    //   String fieldName = matcher.group(1);
+    //   String fieldValue = matcher.group(2);
+    //   json.addProperty(fieldName, fieldValue);
+    // }
+    //
+    // // Remove custom fields from the message
+    // String cleanMessage = message.replaceAll("\\{(.+?)=(.+?)}", "");
+    // json.addProperty("message", cleanMessage);
+    //
+    // Throwable thrown = record.getThrown();
+    // if (thrown != null) {
+    //   json.addProperty("exception", thrown.toString());
+    // }
 
     return json.toString() + "\n";
   }

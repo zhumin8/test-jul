@@ -23,7 +23,8 @@ public class MyLibrary {
     handler.setFormatter(new JsonFormatter());
     JULLOGGER.addHandler(handler);
 
-    JULLOGGER.log(Level.INFO, "this is a logging message");
-    JULLOGGER.log(Level.INFO, "This is a message with {userId=user123} and {transactionId=tx456}");
+    JULLOGGER.log(Level.INFO, "this is a logging message from library ");
+    JULLOGGER.log(Level.INFO, "This is a message  from library with {userId=user123}  {origin=library} and {transactionId=tx456}");
+    JULLOGGER.log(Level.FINE, "This is a debug level message from library {origin=library} ");
   }
 }

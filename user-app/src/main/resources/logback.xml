@@ -1,12 +1,31 @@
-<configuration>
-  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-    <!--    <encoder>-->
-    <!--      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg -  %kvp - %mdc%n</pattern>-->
-    <!--    </encoder>-->
-  </appender>
+<!--<configuration>-->
+<!--  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--    <encoder class="net.logstash.logback.encoder.LogstashEncoder" />-->
+<!--    &lt;!&ndash;    <encoder>&ndash;&gt;-->
+<!--    &lt;!&ndash;      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg -  %kvp - %mdc%n</pattern>&ndash;&gt;-->
+<!--    &lt;!&ndash;    </encoder>&ndash;&gt;-->
+<!--  </appender>-->
 
-  <root level="info">
-    <appender-ref ref="CONSOLE" />
-  </root>
+<!--  <root level="info">-->
+<!--    <appender-ref ref="CONSOLE" />-->
+<!--  </root>-->
+<!--</configuration>-->
+
+
+<configuration>
+
+  <!--  This reset is needed to let jul debug pass through, avoid performance penalty-->
+  <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+    <resetJUL>true</resetJUL>
+  </contextListener>
+<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+  <file>my-app.log</file>
+  <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+  </encoder>
+</appender>
+<!--  <logger name="org.example.MyLibrary" level="debug" />-->
+<root level="debug">
+  <appender-ref ref="FILE" />
+</root>
 </configuration>
