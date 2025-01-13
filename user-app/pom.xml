@@ -52,6 +52,12 @@
       <version>2.14.2</version>
     </dependency>
 
+<!--&lt;!&ndash;  for JsonLayout  &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>ch.qos.logback.contrib</groupId>-->
+<!--      <artifactId>logback-json-classic</artifactId>-->
+<!--      <version>0.1.5</version>-->
+<!--    </dependency>-->
 <!--    bridge-->
     <dependency>
       <groupId>org.slf4j</groupId>

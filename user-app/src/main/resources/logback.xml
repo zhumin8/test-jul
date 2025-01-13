@@ -18,14 +18,26 @@
   <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
     <resetJUL>true</resetJUL>
   </contextListener>
+
+  <conversionRule conversionWord="converterName"
+      converterClass="org.example.CustomFieldConverter" />
 <appender name="FILE" class="ch.qos.logback.core.FileAppender">
   <file>my-app.log</file>
   <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %converterName%n</pattern>
   </encoder>
+
 </appender>
 <!--  <logger name="org.example.MyLibrary" level="debug" />-->
 <root level="debug">
   <appender-ref ref="FILE" />
 </root>
 </configuration>
+
+
+    <!--  <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">-->
+    <!--    <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">-->
+    <!--      <prettyPrint>true</prettyPrint>-->
+    <!--    </jsonFormatter>-->
+    <!--    <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</timestampFormat>-->
+    <!--  </layout>-->
