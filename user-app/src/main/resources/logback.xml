@@ -20,15 +20,26 @@
   </contextListener>
 
   <conversionRule conversionWord="converterName"
-      converterClass="org.example.CustomFieldConverter" />
-<appender name="FILE" class="ch.qos.logback.core.FileAppender">
-  <file>my-app.log</file>
-  <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %converterName%n</pattern>
-  </encoder>
+      converterClass="org.library.CustomFieldConverter" />
+<!--<appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--  <file>my-app.log</file>-->
+<!--&lt;!&ndash;  <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">&ndash;&gt;-->
+<!--&lt;!&ndash;    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %converterName%n</pattern>&ndash;&gt;-->
+<!--&lt;!&ndash;  </encoder>&ndash;&gt;-->
+<!--  <encoder class="net.logstash.logback.encoder.LogstashEncoder">-->
+<!--    <includeMdc>true</includeMdc>-->
+<!--    <includeCallerData>true</includeCallerData>-->
+<!--  </encoder>-->
+<!--</appender>-->
+  <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+    <file>my-app.log</file>
+    <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+      <jsonFormatter class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter">
+        <prettyPrint>true</prettyPrint>
+      </jsonFormatter>
+    </layout>
+  </appender>
 
-</appender>
-<!--  <logger name="org.example.MyLibrary" level="debug" />-->
 <root level="debug">
   <appender-ref ref="FILE" />
 </root>

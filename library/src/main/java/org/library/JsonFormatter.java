@@ -3,11 +3,12 @@ package org.library;
 import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.logging.Formatter;
-import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+// This formatter only useful when directly logging with JUL
+// It is not used when bridging to other frameworks
 public class JsonFormatter extends Formatter {
   private static final Pattern FIELD_PATTERN = Pattern.compile("\\{(.+?)=(.+?)}");
   @Override
@@ -15,10 +16,6 @@ public class JsonFormatter extends Formatter {
     // Create a JSON object
     JsonObject json = new JsonObject();
 
-    // Add logging details
-    // json.addProperty("timestamp", record.getMillis());
-    // json.addProperty("level", record.getLevel().getName());
-    // json.addProperty("logger", record.getLoggerName());
     json.addProperty("message", record.getMessage());
 
     // Extract custom fields from the message
