@@ -3,7 +3,10 @@ package org.library;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.CoreConstants;
 import ch.qos.logback.core.FileAppender;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
@@ -19,6 +22,20 @@ public class LogbackConfig {
     // NOTE: attaches a specific appender to logger, to allow user flexibility to control appenders
     // need to provide multiple options AND/OR expose to users to customize
     LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+
+    // setup conversionrule,
+    // ref: https://stackoverflow.com/questions/40922746/how-do-i-programmatically-set-conversionrule-for-logback
+    // https://stackoverflow.com/questions/43387987/how-to-configure-logback-conversionrule-programmatically-using-java
+    // maintain and future changes?
+    String conversionWord = "converterName";
+    String converterClass = "org.library.CustomFieldConverter";
+    Map<String, String> ruleRegistry = (Map)  loggerContext.getObject(CoreConstants.PATTERN_RULE_REGISTRY);
+    if (ruleRegistry == null) {
+      ruleRegistry = new HashMap<String, String>();
+    }
+    loggerContext.putObject(CoreConstants.PATTERN_RULE_REGISTRY, ruleRegistry);
+    ruleRegistry.put(conversionWord, converterClass);
+
 
     PatternLayoutEncoder encoder = new PatternLayoutEncoder();
     encoder.setContext(loggerContext);
@@ -39,7 +56,6 @@ public class LogbackConfig {
     ch.qos.logback.classic.Logger libraryLogger = loggerContext.getLogger("org.library.MyLibrary");
     libraryLogger.addAppender(fileAppender);
 
-    // loggerContext.addTurboFilter();
 
   }
 }
