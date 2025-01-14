@@ -10,31 +10,11 @@ public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(org.library.Main.class);
 
   public static void main(String[] args) {
+    // configure bridge
     SLF4JBridgeHandler.removeHandlersForRootLogger();
     SLF4JBridgeHandler.install();
 
-//     // In your user application's initialization code
-//
-// // 1. Get your library's logger
-//     java.util.logging.Logger libraryLogger = java.util.logging.Logger.getLogger("org.example.MyLibrary");
-//
-// // 2. Remove any existing handlers on the library's logger
-//     for (Handler handler : libraryLogger.getHandlers()) {
-//       libraryLogger.removeHandler(handler);
-//     }
-//
-// // 3. Install the SLF4JBridgeHandler
-//     SLF4JBridgeHandler.removeHandlersForRootLogger();
-//     SLF4JBridgeHandler slf4jHandler = new SLF4JBridgeHandler();
-//     slf4jHandler.setLevel(Level.FINEST);
-//     java.util.logging.Logger.getLogger("").addHandler(slf4jHandler);
-//
-// // 4. Add your JsonFormatter to the library's logger
-//     Handler jsonHandler = new ConsoleHandler();
-//     jsonHandler.setFormatter(new JsonFormatter());
-//     libraryLogger.addHandler(jsonHandler);
-
-    LogbackConfig.configureLogback();
+    // continue with application code and log
     System.out.println("This is the user app.");
     MyLibrary.testLogging();
 
