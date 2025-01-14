@@ -15,18 +15,30 @@ public class CustomFieldConverter extends ClassicConverter {
     Matcher matcher = FIELD_PATTERN.matcher(message);
     StringBuilder extractedFields = new StringBuilder("{");
 
+    // while (matcher.find()) {
+    //   String fieldName = matcher.group(1);
+    //   String fieldValue = matcher.group(2);
+    //   extractedFields.append("\"").append(fieldName).append("\": \"").append(fieldValue).append("\", ");
+    // }
+    //
+    // if (extractedFields.length() > 1) {
+    //   // Remove the trailing comma and space
+    //   extractedFields.delete(extractedFields.length() - 2, extractedFields.length());
+    // }
+    //
+    // extractedFields.append("}");
+    extractedFields.append(", \"");
     while (matcher.find()) {
       String fieldName = matcher.group(1);
       String fieldValue = matcher.group(2);
-      extractedFields.append("\"").append(fieldName).append("\": \"").append(fieldValue).append("\", ");
+      // Directly add the fields as key-value pairs
+      extractedFields.append(", \"").append(fieldName).append("\": \"").append(fieldValue).append("\"");
+    }
+    // Remove the leading ", " if any fields were extracted
+    if (extractedFields.length() > 0) {
+      extractedFields.delete(0, 2);
     }
 
-    if (extractedFields.length() > 1) {
-      // Remove the trailing comma and space
-      extractedFields.delete(extractedFields.length() - 2, extractedFields.length());
-    }
-
-    extractedFields.append("}");
     return extractedFields.toString();
   }
 }

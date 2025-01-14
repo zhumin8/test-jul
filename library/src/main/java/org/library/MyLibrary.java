@@ -1,13 +1,25 @@
 package org.library;
 
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.FileAppender;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 
 public class MyLibrary {
   private final static Logger JULLOGGER = Logger.getLogger(MyLibrary.class.getName());
   public static void testLogging() {
     System.out.println("you are now running library methods.");
-    // Remove all existing handlers (including the default ConsoleHandler)
+
+    if (isLogbackPresent()) {
+      LogbackConfig.setUpLogbackBridge();
+    }
+
+
+    // setting custom formatter
 
     // // Get the root logger
     // Logger rootLogger = Logger.getLogger("");
@@ -25,8 +37,27 @@ public class MyLibrary {
     JULLOGGER.log(Level.INFO, "This is a message  from library with {userId=user123}  {origin=library} and {transactionId=tx456}");
     JULLOGGER.log(Level.FINE, "This is a debug level message from library {origin=library} ");
 
+    JULLOGGER.log(Level.INFO, "From library: isLogbackPresent?{0}", isLogbackPresent());
     // LogRecord record = new LogRecord(Level.INFO, "This is a log message -- {0},{1}.");
     // record.setParameters(new Object[] { "param1", "123"});
     // JULLOGGER.log(record);
   }
+
+  private static boolean isLogbackPresent() {
+    try {
+      // Get the ClassLoader of the user's application
+      // This line retrieves the ClassLoader associated with the current thread.
+      // In most application servers and environments, this will be the ClassLoader of the user's application,
+      // which is where their dependencies (including Logback if present) are loaded.
+      ClassLoader userClassLoader = Thread.currentThread().getContextClassLoader();
+
+      // Use the user's ClassLoader for the reflection check
+      Class.forName("ch.qos.logback.classic.LoggerContext", false, userClassLoader);
+      return true;
+    } catch (ClassNotFoundException e) {
+      return false;
+    }
+  }
+
+
 }

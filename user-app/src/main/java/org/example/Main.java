@@ -10,8 +10,8 @@ public class Main {
   private static final Logger LOGGER = LoggerFactory.getLogger(org.library.Main.class);
 
   public static void main(String[] args) {
-    SLF4JBridgeHandler.removeHandlersForRootLogger();
-    SLF4JBridgeHandler.install();
+    // SLF4JBridgeHandler.removeHandlersForRootLogger();
+    // SLF4JBridgeHandler.install();
 
 //     // In your user application's initialization code
 //
@@ -34,7 +34,7 @@ public class Main {
 //     jsonHandler.setFormatter(new JsonFormatter());
 //     libraryLogger.addHandler(jsonHandler);
 
-    LogbackConfig.configureLogback();
+    // LogbackConfig.configureLogback();
     System.out.println("This is the user app.");
     MyLibrary.testLogging();
 
