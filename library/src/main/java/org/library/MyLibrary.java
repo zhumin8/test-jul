@@ -37,6 +37,7 @@ public class MyLibrary {
     // JULLOGGER.log(record);
   }
 
+  // Use reflection to determine
   private static boolean isLogbackPresent() {
     try {
       // Get the ClassLoader of the user's application

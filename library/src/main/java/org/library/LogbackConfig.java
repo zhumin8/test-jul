@@ -29,6 +29,7 @@ public class LogbackConfig {
     // maintain and future changes?
     String conversionWord = "converterName";
     String converterClass = "org.library.CustomFieldConverter";
+    // This line retrieves the PatternRuleRegistry from the LoggerContext, an internal object
     Map<String, String> ruleRegistry = (Map)  loggerContext.getObject(CoreConstants.PATTERN_RULE_REGISTRY);
     if (ruleRegistry == null) {
       ruleRegistry = new HashMap<String, String>();
